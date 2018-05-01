@@ -1,0 +1,33 @@
+{
+  "name": "TokyoTech auto login",
+  "version": "1.0",
+  "description": "Automatically input password table when login tokyotech portal",
+  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "options_page": "options.html",
+  "page_action": {
+    "default_icon": {
+      "16": "images/icon16.png",
+      "32": "images/icon32.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "content_scripts": [
+    {
+     "matches": [ "https://portal.nap.gsic.titech.ac.jp/GetAccess/Login?Template=idg_key*",
+       "http://portal.nap.gsic.titech.ac.jp/GetAccess/Login?Template=idg_key*"],
+     "js": ["fillpw.js"]
+    }
+  ],
+  "manifest_version": 2
+}
