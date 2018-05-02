@@ -4,22 +4,6 @@
 
 'use strict';
 
-const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
-
-function constructOptions(kButtonColors) {
-  for (let item of kButtonColors) {
-    let button = document.createElement('button');
-    button.style.backgroundColor = item;
-    button.addEventListener('click', function() {
-      chrome.storage.sync.set({color: item}, function() {
-        console.log('color is ' + item);
-      })
-    });
-    document.getElementById("buttonDiv").appendChild(button);
-  }
-}
-// constructOptions(kButtonColors);
-
 function savePwtable() {
   let inputs = document.getElementsByTagName("input");
   let table = [];
@@ -32,9 +16,21 @@ function savePwtable() {
   });
 }
 
+function clear() {
+  let table = document.querySelectorAll("input");
+  for(let i =0; i < table.length; i++) {
+    table[i].value = "";
+  }
+}
+
 document.getElementById("save").addEventListener("click", savePwtable);
+document.getElementById("clear").addEventListener("click", clear);
 chrome.storage.sync.get(['pw'], function(result) {
-  for(let i = 0; i < result.pw.length; i++) {
-    console.log('Value currently is ' + result.pw[i]);
+  // for(let i = 0; i < result.pw.length; i++) {
+    // console.log('Value currently is ' + result.pw[i]);
+  // }
+  let table = document.querySelectorAll("input");
+  for(let i =0; i < table.length; i++) {
+    table[i].value = result.pw[i];
   }
 });
